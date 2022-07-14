@@ -18,10 +18,15 @@ self.addEventListener('fetch', event => {
       url.pathname === '/') {
     event.respondWith((async () => {
       const formData = await event.request.formData();
-      const link = formData.get('link') || '';
+      const link = formData.get('url') || '';
       const text = formData.get('text') || '';
+      const image = formData.get('media') || '';
+
       console.log(link)
       console.log(text)
+      console.log(image)
+
+      return
       // const responseUrl = await saveBookmark(link);
       // return Response.redirect(responseUrl, 303);
     })());
