@@ -1,3 +1,5 @@
+import {precacheAndRoute} from 'workbox-precaching';
+
 self.addEventListener("install", function () {
   console.log("[PWA----------------Builder] Install Event processing");
 });
@@ -26,3 +28,5 @@ self.addEventListener('fetch', event => {
     })());
   }
 });
+
+precacheAndRoute(self.__WB_MANIFEST);
