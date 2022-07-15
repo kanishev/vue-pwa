@@ -1,34 +1,31 @@
-/**
- * Welcome to your Workbox-powered service worker!
- *
- * You'll need to register this file in your web app and you should
- * disable HTTP caching for this file too.
- * See https://goo.gl/nhQhGp
- *
- * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
- * and re-run your build process.
- * See https://goo.gl/2aRDsh
- */
+importScripts("/precache-manifest.454a86909bd312a8c8bb91d4faa0f444.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+self.addEventListener("install", function () {
+  console.log("[PWA----------------Builder] Install Event processing");
+});
 
-importScripts(
-  "/precache-manifest.02b89316b5081f74c731f73188e8d01f.js"
-);
+self.addEventListener('fetch', event => {
+  console.log("URL ++++++++++++++++", event)
 
-workbox.core.setCacheNameDetails({prefix: "pwa-vue"});
+  const url = new URL(event.request.url);
+  // If this is an incoming POST request for the
+  // registered "action" URL, respond to it.
+  if (event.request.method === 'POST' &&
+      url.pathname === '/') {
+    event.respondWith((async () => {
+      const formData = await event.request.formData();
+      const link = formData.get('url') || '';
+      const text = formData.get('text') || '';
+      const image = formData.get('media') || '';
 
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
+      console.log(link)
+      console.log(text)
+      console.log(image)
+
+      return
+      // const responseUrl = await saveBookmark(link);
+      // return Response.redirect(responseUrl, 303);
+    })());
   }
 });
 
-/**
- * The workboxSW.precacheAndRoute() method efficiently caches and responds to
- * requests for URLs in the manifest.
- * See https://goo.gl/S9QRab
- */
-self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
