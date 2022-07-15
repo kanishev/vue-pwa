@@ -1,4 +1,23 @@
-importScripts("/precache-manifest.02b89316b5081f74c731f73188e8d01f.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+/**
+ * Welcome to your Workbox-powered service worker!
+ *
+ * You'll need to register this file in your web app and you should
+ * disable HTTP caching for this file too.
+ * See https://goo.gl/nhQhGp
+ *
+ * The rest of the code is auto-generated. Please don't update this file
+ * directly; instead, make changes to your Workbox build configuration
+ * and re-run your build process.
+ * See https://goo.gl/2aRDsh
+ */
+
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+
+importScripts(
+  "/precache-manifest.02b89316b5081f74c731f73188e8d01f.js"
+);
+
+workbox.core.setCacheNameDetails({prefix: "pwa-vue"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
@@ -6,27 +25,10 @@ self.addEventListener('message', (event) => {
   }
 });
 
-self.addEventListener("install", function () {
-  console.log("[PWA----------------Builder] Install Event processing");
-});
-
-self.addEventListener('fetch', event => {
-  console.log("URL ++++++++++++++++", event)
-
-  const url = new URL(event.request.url);
-  // If this is an incoming POST request for the
-  // registered "action" URL, respond to it.
-  if (event.request.method === 'POST' &&
-      url.pathname === '/') {
-    event.respondWith((async () => {
-      const formData = await event.request.formData();
-      const link = formData.get('link') || '';
-      const text = formData.get('text') || '';
-      console.log(link)
-      console.log(text)
-      // const responseUrl = await saveBookmark(link);
-      // return Response.redirect(responseUrl, 303);
-    })());
-  }
-});
-
+/**
+ * The workboxSW.precacheAndRoute() method efficiently caches and responds to
+ * requests for URLs in the manifest.
+ * See https://goo.gl/S9QRab
+ */
+self.__precacheManifest = [].concat(self.__precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
