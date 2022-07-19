@@ -27,3 +27,8 @@ self.addEventListener('fetch', event => {
     })());
   }
 });
+
+self.precacheManifest = [].concat(self.precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("index.html"));
