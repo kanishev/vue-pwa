@@ -34,8 +34,7 @@ module.exports = {
           "type": "image/png",
           "purpose": "any maskable"
         },
-    ],
-
+      ]
     }
   }
 }

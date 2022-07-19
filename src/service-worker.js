@@ -1,3 +1,9 @@
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener("install", function () {
   console.log("[PWA----------------Builder] Install Event processing");
 });
@@ -12,15 +18,10 @@ self.addEventListener('fetch', event => {
       url.pathname === '/') {
     event.respondWith((async () => {
       const formData = await event.request.formData();
-      const link = formData.get('url') || '';
+      const link = formData.get('link') || '';
       const text = formData.get('text') || '';
-      const image = formData.get('media') || '';
-
       console.log(link)
       console.log(text)
-      console.log(image)
-
-      return
       // const responseUrl = await saveBookmark(link);
       // return Response.redirect(responseUrl, 303);
     })());
