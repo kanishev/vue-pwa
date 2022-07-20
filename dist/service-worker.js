@@ -6,6 +6,14 @@ self.addEventListener('message', (event) => {
   }
 });
 
+workbox.routing.registerRoute(
+  // Match all navigation requests, except those for URLs whose
+  // path starts with '/admin/'
+  ({request, url}) => request.mode === 'navigate' && request.url.indexOf( '.' ) !== -1 ,
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+
 self.addEventListener("install", function () {
   console.log("[PWA----------------Builder] Install Event processing");
 });
