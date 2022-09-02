@@ -19,9 +19,7 @@ self.addEventListener('fetch', event => {
 
     event.respondWith(
       caches.match(event.request).then( _ => {
-        return fetch(event.request).then( res2 => {
-
-          console.log("RES", res2.json())
+        return fetch(event.request).then( _ => {
 
           let manifest = {
             name: "pwa-vue",
@@ -35,7 +33,6 @@ self.addEventListener('fetch', event => {
                 purpose: "any",
               }
             ],
-            start_url: "/",
             display: "standalone",
             background_color: "#448aff",
             share_target: {
