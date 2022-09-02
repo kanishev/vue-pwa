@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.c0eb551f8733111777af67f7038ff5b2.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/precache-manifest.7545d970976a703889f167889d35d210.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
@@ -20,7 +20,8 @@ self.addEventListener('fetch', event => {
   if (url.pathname == "/manifest.json") {
 
     event.respondWith(
-        fetch(event.request).then( _ => {
+      caches.match(event.request).then( _ => {
+        return fetch(event.request).then( _ => {
 
           let manifest = {
             name: "pwa-test",
@@ -62,6 +63,7 @@ self.addEventListener('fetch', event => {
           let res = new Response(JSON.stringify(manifest), init);
           return res
         })
+      })
     )
   }
 
