@@ -18,7 +18,8 @@ self.addEventListener('fetch', event => {
   if (url.pathname == "/manifest.json") {
 
     event.respondWith(
-        fetch(event.request).then( _ => {
+      caches.match(event.request).then( _ => {
+        return fetch(event.request).then( _ => {
 
           let manifest = {
             name: "pwa-test",
@@ -60,6 +61,7 @@ self.addEventListener('fetch', event => {
           let res = new Response(JSON.stringify(manifest), init);
           return res
         })
+      })
     )
   }
 
