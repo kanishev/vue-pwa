@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.98cfe965e9593e0f4ddc53465d38193e.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/precache-manifest.c0eb551f8733111777af67f7038ff5b2.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
@@ -20,13 +20,10 @@ self.addEventListener('fetch', event => {
   if (url.pathname == "/manifest.json") {
 
     event.respondWith(
-      caches.match(event.request).then( _ => {
-        return fetch(event.request).then( res2 => {
-
-          console.log("RES", res2.json())
+        fetch(event.request).then( _ => {
 
           let manifest = {
-            name: "pwa-vue",
+            name: "pwa-test",
             short_name: "pwa-vue",
             theme_color: "#448aff",
             icons: [
@@ -37,7 +34,6 @@ self.addEventListener('fetch', event => {
                 purpose: "any",
               }
             ],
-            start_url: "/",
             display: "standalone",
             background_color: "#448aff",
             share_target: {
@@ -66,30 +62,7 @@ self.addEventListener('fetch', event => {
           let res = new Response(JSON.stringify(manifest), init);
           return res
         })
-      })
     )
-
-    // event.respondWith(
-    //   fetch(event.request).then(res => {
-    //     console.log("RES", res)
-    //     let manifest = {
-    //       name: "App name"
-    //     };
-    //     let content = encodeURIComponent(JSON.stringify(manifest));
-    //     let url = "data:application/manifest+json,"+content;
-    //     return url
-    //   })
-
-      // caches.match(event.request).then((cacheRes) => {
-        // return cacheRes || fetch(event.request).then(res => {
-        //   return caches.open('manifest').then(cache => {
-        //     cache.put(event.request, res.clone());
-        //     console.log("RES", res)
-        //     return res
-        //   })
-        // })
-      // })
-    // )
   }
 
 });

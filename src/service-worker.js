@@ -18,11 +18,10 @@ self.addEventListener('fetch', event => {
   if (url.pathname == "/manifest.json") {
 
     event.respondWith(
-      caches.match(event.request).then( _ => {
-        return fetch(event.request).then( _ => {
+        fetch(event.request).then( _ => {
 
           let manifest = {
-            name: "pwa-vue",
+            name: "pwa-test",
             short_name: "pwa-vue",
             theme_color: "#448aff",
             icons: [
@@ -61,30 +60,7 @@ self.addEventListener('fetch', event => {
           let res = new Response(JSON.stringify(manifest), init);
           return res
         })
-      })
     )
-
-    // event.respondWith(
-    //   fetch(event.request).then(res => {
-    //     console.log("RES", res)
-    //     let manifest = {
-    //       name: "App name"
-    //     };
-    //     let content = encodeURIComponent(JSON.stringify(manifest));
-    //     let url = "data:application/manifest+json,"+content;
-    //     return url
-    //   })
-
-      // caches.match(event.request).then((cacheRes) => {
-        // return cacheRes || fetch(event.request).then(res => {
-        //   return caches.open('manifest').then(cache => {
-        //     cache.put(event.request, res.clone());
-        //     console.log("RES", res)
-        //     return res
-        //   })
-        // })
-      // })
-    // )
   }
 
 });
