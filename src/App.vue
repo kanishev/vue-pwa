@@ -1,12 +1,29 @@
 <template>
   <div id="app">
+    <h1>Test</h1>
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/hello">Hello</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  mounted(){
+    console.log('MOunted')
+    self.addEventListener('install', event => {
+      console.log('MOunted 2')
+
+      event.waitUntil(
+      caches.open('HELLO').then(cache => cache.addAll(['index.html']))
+    )
+    })
+  }
+}
+</script>
 
 <style>
 #app {
