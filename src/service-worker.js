@@ -18,50 +18,13 @@ self.addEventListener('fetch', event => {
   if (url.pathname == "/manifest.json") {
 
     event.respondWith(
-      caches.match(event.request).then( _ => {
-        return fetch(event.request).then( _ => {
-
-          let manifest = {
-            name: "pwa-test",
-            short_name: "pwa-vue",
-            theme_color: "#448aff",
-            icons: [
-              {
-                src: "img/icons/android-chrome-192x192.png",
-                sizes: "192x192",
-                type: "image/png",
-                purpose: "any",
-              }
-            ],
-            display: "standalone",
-            background_color: "#448aff",
-            share_target: {
-              action: "/",
-              enctype: "multipart/form-data",
-              method: "POST",
-              params: {
-                title: "title",
-                text: "text",
-                url: "url",
-                files: [
-                  {
-                  name: "media",
-                  accept: [
-                    "audio/*",
-                    "image/*",
-                    "video/*",
-                  ],
-                  }
-                ],
-              },
-             },
-            }
-
-          let init = { "status" : 200 , "statusText" : "I am a custom service worker response!" };
-          let res = new Response(JSON.stringify(manifest), init);
-          return res
-        })
-      })
+      (async () => {
+        await caches.match(event.request)
+        let fetchRes = await fetch(event.request)
+        let manifest = await fetchRes.json()
+        delete manifest['start_url']
+        return new Response(JSON.stringify(manifest), fetchRes);
+      })()
     )
   }
 
