@@ -31,4 +31,27 @@ const router = new VueRouter({
   routes
 })
 
+router.afterEach(() => {
+  let links = Array.from(document.getElementsByTagName('link'))
+  let manifest = links.find(l => l.rel == 'manifest')
+  manifest.id = Math.random() * 10000
+  document.head.append(manifest)
+
+
+  // let meta = document.getElementById('metaID')
+  // if (meta) {
+  //   document.head.removeChild(meta)
+  // }
+  // let newMeta = document.createElement('meta')
+  // newMeta.setAttribute('name', 'application-url')
+
+  // if (window.location.href !== 'http://localhost:8080/about'){
+  //   newMeta.setAttribute('content', '/')
+  // } else {
+  //   newMeta.setAttribute('content', window.location.href)
+  // }
+  // newMeta.id = 'metaID'
+  // document.head.append(newMeta)
+})
+
 export default router

@@ -19,6 +19,30 @@ self.addEventListener('fetch', event => {
 
   const url = new URL(event.request.url)
 
+      //   if (cacheRes){
+      //     console.log('умуте 2', event)
+      //     if (event.request.referrer == "http://localhost:8080/about"){
+      //       let manifest = await cacheRes.json()
+      //       console.log('in cache and route', manifest)
+      //       return cacheRes
+      //     } else {
+      //       Response.redirect('/', 302)
+      //       return cacheRes
+      //     }
+      //   } else {
+      //     console.log('is not in cache')
+      //     let manifest = await fetchRes.json()
+      //     delete manifest['start_url']
+
+      //     caches.open('web-manifest').then(cache => {
+      //       cache.put(event.request, new Response(JSON.stringify(manifest), fetchRes))
+      //     })
+
+      //     return new Response(JSON.stringify(manifest), fetchRes);
+      //   }
+
+      // })()
+
   if (url.pathname == "/manifest.json" && !isMobileOrTablet) {
     event.respondWith(
       (async () => {
