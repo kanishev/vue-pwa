@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Test Updated</h1>
+    <h1>Test Updated 2</h1>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
@@ -11,16 +11,9 @@
 </template>
 
 <script>
+import update from './mixins/update'
 export default {
-  mounted(){
-    self.addEventListener('install', event => {
-      console.log('MOunted 2')
-
-      event.waitUntil(
-      caches.open('HELLO').then(cache => cache.addAll(['index.html']))
-    )
-    })
-  }
+  mixins: [update]
 }
 </script>
 
