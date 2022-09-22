@@ -5,9 +5,6 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-
-console.log('mode 2', window.navigator.standalone)
-
 new Vue({
   router,
   render: h => h(App)

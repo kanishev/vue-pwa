@@ -34,8 +34,9 @@ const router = new VueRouter({
 router.afterEach(() => {
   let links = Array.from(document.getElementsByTagName('link'))
   let manifest = links.find(l => l.rel == 'manifest')
-  manifest.id = Math.random() * 10000
   document.head.append(manifest)
+
+  console.log('manifest appended 2')
 
 
   // let meta = document.getElementById('metaID')
