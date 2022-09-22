@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1>Test Updated 2</h1>
+    <h1>Test Updated 1</h1>
+    <button @click="click">CLICK</button>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
@@ -13,7 +14,16 @@
 <script>
 import update from './mixins/update'
 export default {
-  mixins: [update]
+  mixins: [update],
+  methods: {
+    click(){
+      navigator.serviceWorker.register('/service-worker.js').then(reg => {
+        // sometime later…
+        console.log('test 1')
+        reg.update();
+      });
+    }
+  }
 }
 </script>
 
